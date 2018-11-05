@@ -19,21 +19,13 @@ class Contacto:
                                  self.phone_number)
 
 
-
 l_contacts = []
+l_hidden = []
 l_contacts.append(Contacto("juan", "restrepo", 22, "juan@globant.com", {"house": "3542134", "cell phone": "3204532478"}))
 time.sleep(2)
 l_contacts.append(Contacto("Carlos", "Lopez", 20, "carlos@globant.com", {"office": "2345673", "cell phone": "3156385721"}))
 time.sleep(2)
 l_contacts.append(Contacto("Lina", "Pulido", 30, "lina@globant.com", {"personal": "1234567", "cell phone": "3005732146"}))
-
-print(l_contacts[0].name)
-print(l_contacts[0].date)
-print(l_contacts[1].name)
-print(l_contacts[1].date)
-print(l_contacts[2].name)
-print(l_contacts[2].date)
-
 
 
 def menu():
@@ -41,7 +33,8 @@ def menu():
           "1. List contacts (sorted by creation date) \n"
           "2. Create new contact \n"
           "3. Update existing contact \n"
-          "4. Hide contact \n \n"
+          "4. Hide contact \n"
+          "5. Recover hidden contacts \n \n"
           "Please enter the number...")
     choice = input()
 
@@ -83,8 +76,82 @@ def menu():
 
         menu()
 
+    if(choice == "3"):
+        count = 1
+        print("Choose contact")
+        for i in l_contacts:
+            print('{}. {}'.format(count, i.__repr__()))
+            count += 1
+        contact_update = input()
+
+        print("Choose option to update \n 1. Name \n 2. Last Name \n 3. Age \n 4. Email \n 5. Numbers")
+        choice = input()
+
+        if(choice == "1"):
+            print('Current name --> {}'.format(l_contacts[int(contact_update) - 1].name))
+            print("Enter new name")
+            new_name = input()
+            l_contacts[int(contact_update) - 1].name = new_name
+            print("Successful update")
+
+        if(choice == "2"):
+            print('Current last name --> {}'.format(l_contacts[int(contact_update) - 1].last_name))
+            print("Enter new last name")
+            new_last_name = input()
+            l_contacts[int(contact_update) - 1].last_name = new_last_name
+            print("Successful update")
 
 
+        if(choice == "3"):
+            print('Current age --> {}'.format(l_contacts[int(contact_update) - 1].age))
+            print("Enter new age")
+            new_age = input()
+            l_contacts[int(contact_update) - 1].age = int(new_age)
+            print("Successful update")
+
+
+        if(choice == "4"):
+            print('Current email --> {}'.format(l_contacts[int(contact_update) - 1].email))
+            print("Enter new email")
+            new_email = input()
+            l_contacts[int(contact_update) - 1].email = new_email
+            print("Successful update")
+
+        if(choice == "5"):
+            count = 1
+            print("Current numbers: \n")
+            for key, val in l_contacts[int(contact_update) - 1].phone_number.items():
+                print('{}. {}: {}'.format(count, key, val))
+                count += 1
+            print("Choose a number")
+            num = input()
+            count = 1
+            for key in l_contacts[int(contact_update) - 1].phone_number:
+                if(int(num) == count):
+                    print("Enter new phone number")
+                    new_phone_number = input()
+                    l_contacts[int(contact_update) - 1].phone_number[key] = new_phone_number
+                count += 1
+        menu()
+
+    if(choice == "4"):
+        count = 1
+        print("Choose contact")
+        for i in l_contacts:
+            print('{}. {}'.format(count, i.__repr__()))
+            count += 1
+        hide_contact = input()
+        l_hidden.append(l_contacts.pop(int(hide_contact) - 1))
+        print("Successful hide \n")
+
+        menu()
+
+    if(choice == "5"):
+        for i in l_hidden:
+            l_contacts.append(i)
+        print("Successful recover of hidden contacts")
+
+        menu()
 
 #comprehension_list = [ e**2 for e in l_contacts if e.name]
 
