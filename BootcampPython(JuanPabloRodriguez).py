@@ -3,31 +3,29 @@ import time
 
 class Contacto:
 
-    def __init__(self, name, last_name, age, phone_number, email):
+    def __init__(self, name, last_name, age, email, phone_number):
         self.name = name
         self.last_name = last_name
         self.age = age
-        self.phone_number = phone_number
         self.email = email
+        self.phone_number = phone_number
         self.date = time.ctime()
 
     def __repr__(self):
         return '{} {} {} {} {}'.format(self.name,
                                  self.last_name,
                                  self.age,
-                                 self.phone_number,
-                                 self.email)
+                                 self.email,
+                                 self.phone_number)
 
-c1 = Contacto("juan", "restrepo", 22, "3204567543", "juan@globant.com")
-time.sleep(2)
-c2 = Contacto("Carlos", "Lopez", 20, "3164783421", "carlos@globant.com")
-time.sleep(2)
-c3 = Contacto("Lina", "Pulido", 30, "3005673212", "lina@globant.com")
+
 
 l_contacts = []
-l_contacts.append(c1)
-l_contacts.append(c2)
-l_contacts.append(c3)
+l_contacts.append(Contacto("juan", "restrepo", 22, "juan@globant.com", {"house": "3542134", "cell phone": "3204532478"}))
+time.sleep(2)
+l_contacts.append(Contacto("Carlos", "Lopez", 20, "carlos@globant.com", {"office": "2345673", "cell phone": "3156385721"}))
+time.sleep(2)
+l_contacts.append(Contacto("Lina", "Pulido", 30, "lina@globant.com", {"personal": "1234567", "cell phone": "3005732146"}))
 
 print(l_contacts[0].name)
 print(l_contacts[0].date)
@@ -44,7 +42,7 @@ def menu():
           "2. Create new contact \n"
           "3. Update existing contact \n"
           "4. Hide contact \n \n"
-          "Please enter the number... \n")
+          "Please enter the number...")
     choice = input()
 
     if(choice == "1"):
@@ -53,6 +51,37 @@ def menu():
             print(i.__repr__())
         menu()
 
+    if(choice == "2"):
+        print("Enter name:")
+        name = input()
+        print("Enter last name:")
+        last_name = input()
+        print("Enter age:")
+        age = input()
+        print("Enter email:")
+        email = input()
+        print("Enter phone number name (office, personal, cell phone, etc): \n")
+        phone_number_name = input()
+        print("Enter phone number for " + phone_number_name)
+        phone_number = input()
+
+        l_contacts.append(Contacto(name, last_name, int(age), email, {phone_number_name: phone_number}))
+        flag = True
+
+        while(flag == True):
+            print("Other phone number? \n 1. Yes  2. No")
+            choice = input()
+            if(choice == "1"):
+                print("Enter phone number name (office, personal, cell phone, etc): \n")
+                phone_number_name = input()
+                print("Enter phone number for " + phone_number_name)
+                phone_number = input()
+                l_contacts[len(l_contacts) - 1].phone_number[phone_number_name] = phone_number
+
+            if(choice == "2"):
+                flag = False
+
+        menu()
 
 
 
